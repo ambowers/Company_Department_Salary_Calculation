@@ -72,7 +72,7 @@ function calculateSubordinateSalary(employee){
     for (let subordinate of employee.subordinates) {
         totalSalary += subordinate.salary;
 
-        if (subordinate.subordinates && subordinate.subordinates.length > 0) {
+        if (subordinate.subordinates && subordinate.subordinates.length > 0) { //this checks if employee has subordinates (edge case)
             totalSalary += calculateSubordinateSalary(subordinate);
         }
     }
@@ -84,3 +84,18 @@ const marketingSalary = calculateDepartmentSalary(company.departments[1])
 
 console.log(`Total salary for Engineering Department (including subordinates): $${engineerSalary}`);
 console.log(`Total salary for Marketing Department (including subordinates): $${marketingSalary}`);
+
+//Task 3 create a function to calculate total salary for all departments
+
+function calculateCompanySalary (company){
+    let totalCompanySalary = 0;
+
+    for (let department of company.departments) {
+    if (department.employees && department.employees.length > 0) { //this checks if department has employees (edge case)
+        totalCompanySalary += calculateDepartmentSalary(department);
+        }
+    }
+return totalCompanySalary;
+}
+const totalSalary = calculateCompanySalary(company);
+console.log(`The total salary for all departments is $${totalSalary} `)
